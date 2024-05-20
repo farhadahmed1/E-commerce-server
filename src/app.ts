@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { MovieRoutes } from './app/modules/movie/movie.route';
+import { ProductRoutes } from './app/modules/product/product.route';
 const app: Application = express();
 
 // parsers
@@ -9,10 +9,10 @@ app.use(express.json());
 app.use(cors());
 // application routes
 
-app.use('/api/movies', MovieRoutes);
+app.use('/api/products', ProductRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello movies World!');
+  res.send('Hello e-commerce World!');
 });
 
 export default app;
