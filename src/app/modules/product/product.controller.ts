@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { ProductService } from './product.service';
-
 import productValidationSchema from './product.validation';
 
 const createProduct = async (req: Request, res: Response) => {
@@ -29,20 +28,51 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const result = await ProductService.getAllProductsFromDB();
+    const searchQuery = (req.query.searchTerm as string) || '';
+    let result;
+
+    if (searchQuery) {
+      result = await ProductService.getAllProductsFromDB(searchQuery);
+    } else {
+      result = await ProductService.getAllProductsFromDB();
+    }
+
+    if (!result || result.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product Not Found',
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Products fetched successfully!',
+      message: 'Product Fetched Successfully',
       data: result,
     });
-  } catch (err: any) {
+  } catch (error) {
     res.status(500).json({
-      success: true,
-      message: 'Movie Not fetched  ',
-      err: err.message,
+      success: false,
+      message: 'Error Occurred While Getting All Products',
+      error: error,
     });
   }
 };
+// const getAllProducts = async (req: Request, res: Response) => {
+//   try {
+//     const result = await ProductService.getAllProductsFromDB();
+//     res.status(200).json({
+//       success: true,
+//       message: 'Products fetched successfully!',
+//       data: result,
+//     });
+//   } catch (err: any) {
+//     res.status(500).json({
+//       success: true,
+//       message: 'Movie Not fetched  ',
+//       err: err.message,
+//     });
+//   }
+// };
 
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
@@ -99,6 +129,7 @@ const deletedProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
 export const ProductController = {
   createProduct,
   updateProduct,
