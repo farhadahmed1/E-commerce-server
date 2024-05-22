@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { ProductService } from './product.service';
 import productValidationSchema from './product.validation';
 
+// 1-Create a new product using "post" method
 const createProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
@@ -25,7 +26,7 @@ const createProduct = async (req: Request, res: Response) => {
     });
   }
 };
-
+// get all products and search for products
 const getAllProducts = async (req: Request, res: Response) => {
   try {
     const searchQuery = (req.query.searchTerm as string) || '';
@@ -58,6 +59,7 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
+// get selected products by ID
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -75,6 +77,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
     });
   }
 };
+// update product any field
 const updateProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -96,6 +99,7 @@ const updateProduct = async (req: Request, res: Response) => {
     });
   }
 };
+// delete product from database
 const deletedProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;

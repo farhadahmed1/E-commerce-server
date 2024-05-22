@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { OrderServices } from './order.service';
 import orderValidationSchema from './order.validation';
 
-// 1-Create a new order using "post" method
+//Create a new order using "post" method
 const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
@@ -25,7 +25,7 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-// 2,3-Get all or search orders using "get" method
+// Get all or search orders using "get" method
 const getAllOrSearchOrders = async (req: Request, res: Response) => {
   try {
     const searchEmail = req.query.email as string | null;
