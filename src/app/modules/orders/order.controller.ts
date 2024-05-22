@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
 //import orderValidationSchema from './order.validation';
 import { OrderServices } from './order.service';
+import orderValidationSchema from './order.validation';
 
 // 1-Create a new order using "post" method
 const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
     // validation Zed using
-    //const zodParsedData = orderValidationSchema.parse(orderData);
-    const result = await OrderServices.createOrder(orderData);
+    const zodParsedData = orderValidationSchema.parse(orderData);
+    const result = await OrderServices.createOrder(zodParsedData);
     // send response
     res.status(200).json({
       success: true,
