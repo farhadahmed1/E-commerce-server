@@ -1,15 +1,11 @@
-import { ProductModel } from '../product.model';
+import { ProductModel } from './product.model';
 import { TProduct } from './product.interface';
 // create a new product
 const createProductInDB = async (product: TProduct) => {
   const result = await ProductModel.create(product);
   return result;
 };
-// get all products
-// const getAllProductsFromDB = async () => {
-//   const result = await ProductModel.find();
-//   return result;
-// };
+
 // get single product using  by Id
 const getSingleProductFromDB = async (_id: string) => {
   const result = await ProductModel.findOne({ _id });
@@ -25,6 +21,7 @@ const deletedProductFromDB = async (_id: string) => {
   const result = await ProductModel.deleteOne({ _id });
   return result;
 };
+// get all products
 const getAllProductsFromDB = async (query?: string) => {
   let searchText = {};
 

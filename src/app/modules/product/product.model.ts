@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { TInventory, TProduct, TVariant } from './product/product.interface';
+import { TInventory, TProduct, TVariant } from './product.interface';
 
 const inventorySchema = new Schema<TInventory>({
   quantity: {
@@ -25,6 +25,7 @@ const productSchema = new Schema<TProduct>({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
 
   description: {

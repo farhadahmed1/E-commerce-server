@@ -4,7 +4,7 @@ import productValidationSchema from './product.validation';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const { product: productData } = req.body;
+    const productData = req.body;
     // validation Zed using
     const zodParsedData = productValidationSchema.parse(productData);
     // will call service function  to send this data business logic all append services file
@@ -19,7 +19,7 @@ const createProduct = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     res.status(500).json({
-      success: true,
+      success: false,
       message: 'Product Not created ',
       err: err.message,
     });
@@ -57,22 +57,6 @@ const getAllProducts = async (req: Request, res: Response) => {
     });
   }
 };
-// const getAllProducts = async (req: Request, res: Response) => {
-//   try {
-//     const result = await ProductService.getAllProductsFromDB();
-//     res.status(200).json({
-//       success: true,
-//       message: 'Products fetched successfully!',
-//       data: result,
-//     });
-//   } catch (err: any) {
-//     res.status(500).json({
-//       success: true,
-//       message: 'Movie Not fetched  ',
-//       err: err.message,
-//     });
-//   }
-// };
 
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
@@ -85,7 +69,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     res.status(500).json({
-      success: true,
+      success: false,
       message: 'Product not found',
       err: err.message,
     });
@@ -106,7 +90,7 @@ const updateProduct = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     res.status(500).json({
-      success: true,
+      success: false,
       message: err.message || 'Product not updated',
       data: err,
     });
@@ -123,7 +107,7 @@ const deletedProduct = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     res.status(500).json({
-      success: true,
+      success: false,
       message: err.message || 'Product not deleted found',
       data: err,
     });
